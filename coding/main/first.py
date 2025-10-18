@@ -12,6 +12,8 @@ Window.size = (360, 640)
 Window.color = (0/255, 0/255, 0/255, 1)  #Черный фон
 Window.title = "Re:fit"
 
+
+
 class WelcomeScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -110,18 +112,20 @@ class RegistrationScreen(Screen):
             size_hint=(1, None),
             height=dp(55),
             background_color=(0.2, 0.8, 0.4, 1),
-            color=(1, 1, 1, 1)
+            color=(1, 1, 1, 1),
+            bold = True
         )
-        register_btn.bind(on_press=self.register_user)
+        register_btn.bind(on_press = self.register_user)
 
         # Кнопка назад
         back_btn = Button(
             text='НАЗАД',
             size_hint=(1, None),
-            height=dp(45),
-            background_color=(0.8, 0.8, 0.8, 1)
+            height=dp(55),
+            background_color=(0.8, 0.8, 0.8, 1),
+            bold = True
         )
-        back_btn.bind(on_press=self.go_back)
+        back_btn.bind(on_press = self.go_back)
 
         layout.add_widget(title)
         layout.add_widget(self.name_input)
@@ -139,7 +143,7 @@ class RegistrationScreen(Screen):
 
         if name and height and weight:
             print(f"Успешная регистрация: {name}")
-            # Здесь можно сохранить данные или перейти дальше
+            self.manager.current = 'training'
         else:
             print("Заполните все поля!")
 
@@ -148,6 +152,89 @@ class RegistrationScreen(Screen):
         self.manager.current = 'welcome'
 
 
+
+# ТРЕТИЙ ЭКРАН - Выбор режима тренировок
+class TrainingScreen(Screen):
+    def __init__(self, **kwargs):
+        super().__init__(**kwargs)
+
+        layout = BoxLayout(orientation='vertical', padding=dp(30), spacing=dp(15))
+
+        # Заголовок
+        title = Label(
+            text='Выбор режима тренировок',
+            font_size=dp(24),
+            bold=True,
+            size_hint=(1, 0.2),
+            color=(0.2, 0.2, 0.2, 1)
+        )
+
+        # Кнопка режима "Начинающий"
+        beginner_btn = Button(
+            text='НАЧИНАЮЩИЙ\n\n• Легкие упражнения\n• Медленный темп\n• Для новичков',
+            size_hint=(1, None),
+            height=dp(100),
+            background_color=(0.3, 0.7, 0.9, 1),
+            color=(1, 1, 1, 1),
+            font_size=dp(16)
+        )
+        beginner_btn.bind(on_press=self.start_beginner)
+
+        # Кнопка режима "Продвинутый"
+        advanced_btn = Button(
+            text='ПРОДВИНУТЫЙ\n\n• Сложные упражнения\n• Быстрый темп\n• Для опытных',
+            size_hint=(1, None),
+            height=dp(100),
+            background_color=(0.9, 0.6, 0.2, 1),
+            color=(1, 1, 1, 1),
+            font_size=dp(16)
+        )
+        advanced_btn.bind(on_press=self.start_advanced)
+
+        # Кнопка режима "Профессионал"
+        pro_btn = Button(
+            text='ПРОФЕССИОНАЛ\n\n• Максимальная нагрузка\n• Высокий темп\n• Для профессионалов',
+            size_hint=(1, None),
+            height=dp(100),
+            background_color=(0.8, 0.2, 0.2, 1),
+            color=(1, 1, 1, 1),
+            font_size=dp(16)
+        )
+        pro_btn.bind(on_press=self.start_pro)
+
+        # Кнопка назад
+        back_btn = Button(
+            text='НАЗАД',
+            size_hint=(1, None),
+            height=dp(45),
+            background_color=(0.8, 0.8, 0.8, 1),
+            color=(0.2, 0.2, 0.2, 1)
+        )
+        back_btn.bind(on_press=self.go_back)
+
+        layout.add_widget(title)
+        layout.add_widget(beginner_btn)
+        layout.add_widget(advanced_btn)
+        layout.add_widget(pro_btn)
+        layout.add_widget(back_btn)
+
+        self.add_widget(layout)
+
+    def start_beginner(self, instance):
+        print("Запуск режима: Начинающий")
+        # Здесь можно перейти к тренировке
+
+    def start_advanced(self, instance):
+        print("Запуск режима: Продвинутый")
+        # Здесь можно перейти к тренировке
+
+    def start_pro(self, instance):
+        print("Запуск режима: Профессионал")
+        # Здесь можно перейти к тренировке
+
+    def go_back(self, instance):
+        self.manager.current = 'registration'
+
 class MyApp(App):
     def build(self):
         sm = ScreenManager()
@@ -155,7 +242,7 @@ class MyApp(App):
         # Добавляем экраны
         sm.add_widget(WelcomeScreen(name = 'welcome'))
         sm.add_widget(RegistrationScreen(name = 'registration'))
-
+        sm.add_widget(TrainingScreen(name='training'))
         return sm
 
 if __name__ == '__main__':
