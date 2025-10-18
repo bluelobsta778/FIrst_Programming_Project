@@ -25,20 +25,41 @@ class LoginScreen(BoxLayout):
         # Заголовок
 
         title = Label(
-            text='Добро пожаловать!',
-            font_size = dp(24),
+            text = 'Добро пожаловать в Re:FIT!',
+            font_size = dp(23),
             bold = True,
             color = (0.3, 0.3, 0.3, 1),  # Темно-серый
-            size_hint = (1, 0.3)
+            size_hint = (1, 0.15)
         )
 
+        #Подзагаловок
 
+        subtitle = Label(
+            text = 'Для того чтобы использовать наше\nприложение вам'
+                   ' нужно будет\nввести свои данные',
+            font_size = dp(16),
+            color = (0.4, 0.4, 0.4, 1),  # Серый
+            text_size = (Window.width - dp(80), None),
+            halign = 'center',
+            size_hint = (1, 0)
+        )
 
+        #Кнопка
 
+        register_btn = Button(
+            text = 'ПРОДОЛЖИТЬ',
+            size_hint = (1, None),
+            height = dp(55),
+            background_color = (0.2, 0.6, 0.9, 1),
+            color = (1, 1, 1, 1),
+            font_size = dp(18),
+            bold = True
+        )
 
-        self.add_widget(title) #Такие строки выводят виджеты, которые мы ранее написали в UI
-
-
+        # Такие строки выводят виджеты, которые мы ранее написали в UI
+        self.add_widget(title)
+        self.add_widget(subtitle)
+        self.add_widget(register_btn)
 
 
 class MyApp(App):
