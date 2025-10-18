@@ -1,5 +1,3 @@
-from turtledemo.penrose import start
-
 from kivy.app import App
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.label import Label
@@ -91,20 +89,19 @@ class RegistrationScreen(Screen):
         )
 
         # Поле для email
-        self.email_input = TextInput(
-            hint_text='Введите ваш email',
+        self.height_input = TextInput(
+            hint_text='Введите ваш рост',
             size_hint=(1, None),
             height=dp(50),
             font_size=dp(16)
         )
 
         # Поле для пароля
-        self.password_input = TextInput(
-            hint_text='Введите пароль',
+        self.weight_input = TextInput(
+            hint_text='Введите ваш вес',
             size_hint=(1, None),
             height=dp(50),
             font_size=dp(16),
-            password=True
         )
 
         # Кнопка регистрации
@@ -128,8 +125,8 @@ class RegistrationScreen(Screen):
 
         layout.add_widget(title)
         layout.add_widget(self.name_input)
-        layout.add_widget(self.email_input)
-        layout.add_widget(self.password_input)
+        layout.add_widget(self.height_input)
+        layout.add_widget(self.weight_input)
         layout.add_widget(register_btn)
         layout.add_widget(back_btn)
 
@@ -137,11 +134,11 @@ class RegistrationScreen(Screen):
 
     def register_user(self, instance):
         name = self.name_input.text
-        email = self.email_input.text
-        password = self.password_input.text
+        height = self.weight_input.text
+        weight = self.height_input.text
 
-        if name and email and password:
-            print(f"Успешная регистрация: {name}, {email}")
+        if name and height and weight:
+            print(f"Успешная регистрация: {name}")
             # Здесь можно сохранить данные или перейти дальше
         else:
             print("Заполните все поля!")
